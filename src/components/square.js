@@ -46,7 +46,7 @@ export default class Square {
     if (this.alive) {
       const clampedY = this.clamp(this.y / this.targetY, 0, 1)
 
-      this.scale = clampedY * 8
+      this.scale = clampedY * 14
       this.x = this.calculateAdjustments(this.startX, this.targetX, clampedY)
       this.y = this.y + (this.scale * devicePixelRatio)
       let size = this.calculateAdjustments(this.startSize, this.maxSize, clampedY)

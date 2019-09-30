@@ -20,7 +20,7 @@ window.onload = function() {
   video.width = document.body.clientWidth
   video.height = document.body.clientHeight
 
-  const player = new Player(ctx, 25, canvas.height - 25, 50, 25);
+  const player = new Player(ctx, 25, canvas.height - 100, 50, 25);
   const lanes = new Lanes(ctx, c);
   const midPoint = c.width / 2
   const height = c.height + 25
