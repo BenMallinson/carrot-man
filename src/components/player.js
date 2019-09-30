@@ -20,8 +20,8 @@ export default class Player {
 
   move (trackingX, canvasWidth) {
     if(((this.x - 5) < 0 && trackingX < (canvasWidth / 2)) || ((this.x + 5) > canvasWidth - 50 && trackingX > (canvasWidth / 2))) return
-    if(trackingX < (canvasWidth / 2) && this.x !== trackingX) this.setLocation(this.x - 8, this.y)
-    if(trackingX > (canvasWidth / 2) && this.x !== trackingX) this.setLocation(this.x + 8, this.y)
+    if(trackingX < (canvasWidth / 2) && this.x !== trackingX) this.setLocation(this.x - (8 * devicePixelRatio), this.y)
+    if(trackingX > (canvasWidth / 2) && this.x !== trackingX) this.setLocation(this.x + (8 * devicePixelRatio), this.y)
   }
 
   setLocation(x, y) {

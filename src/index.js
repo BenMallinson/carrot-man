@@ -20,20 +20,20 @@ window.onload = function() {
   video.width = document.body.clientWidth
   video.height = document.body.clientHeight
 
-  const player = new Player(ctx, 25, canvas.height - 100, 50, 25);
+  const player = new Player(ctx, 25, canvas.height - 100, canvas.width / 10, canvas.height / 20);
   const lanes = new Lanes(ctx, c);
   const midPoint = c.width / 2
   const height = c.height + 25
   const chunk = c.width / 4
   const squares = [
-    new Square (midPoint + 10, 20, 5, 25, midPoint + (chunk * 1.5), height, ctx),
-    new Square (midPoint + 5, 20, 5, 25, midPoint + (chunk * 0.5), height, ctx),
-    new Square (midPoint - 5, 20, 5, 25, midPoint - (chunk * 0.5), height, ctx),
-    new Square (midPoint - 10, 20, 5, 25, midPoint - (chunk * 1.5), height, ctx),
-    new Square (midPoint + 10, 20, 5, 25, midPoint + (chunk * 1.5), height, ctx),
-    new Square (midPoint + 5, 20, 5, 25, midPoint + (chunk * 0.5), height, ctx),
-    new Square (midPoint - 5, 20, 5, 25, midPoint - (chunk * 0.5), height, ctx),
-    new Square (midPoint - 10, 20, 5, 25, midPoint - (chunk * 1.5), height, ctx),
+    new Square (midPoint + 10, 20, 5, canvas.width / 20, midPoint + (chunk * 1.5), height, ctx),
+    new Square (midPoint + 5, 20, 5, canvas.width / 20, midPoint + (chunk * 0.5), height, ctx),
+    new Square (midPoint - 5, 20, 5, canvas.width / 20, midPoint - (chunk * 0.5), height, ctx),
+    new Square (midPoint - 10, 20, 5, canvas.width / 20, midPoint - (chunk * 1.5), height, ctx),
+    new Square (midPoint + 10, 20, 5, canvas.width / 20, midPoint + (chunk * 1.5), height, ctx),
+    new Square (midPoint + 5, 20, 5, canvas.width / 20, midPoint + (chunk * 0.5), height, ctx),
+    new Square (midPoint - 5, 20, 5, canvas.width / 20, midPoint - (chunk * 0.5), height, ctx),
+    new Square (midPoint - 10, 20, 5, canvas.width / 20, midPoint - (chunk * 1.5), height, ctx),
   ]
 
   let score = 0
