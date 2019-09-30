@@ -15,7 +15,6 @@ export default class Square {
     this.startX = x
     this.alive = false
 
-
     this.update = this.update.bind(this)
     this.reset = this.reset.bind(this)
     this.collide = this.collide.bind(this)
@@ -31,7 +30,7 @@ export default class Square {
 
   reset () {
     this.x = this.startX
-    this.y = 5
+    this.y = 40
     this.scale = 1
     this.speed = 1
     this.alive = true
@@ -47,7 +46,7 @@ export default class Square {
     if (this.alive) {
       const clampedY = this.clamp(this.y / this.targetY, 0, 1)
 
-      this.scale = clampedY * 10
+      this.scale = clampedY * 4
       this.x = this.calculateAdjustments(this.startX, this.targetX, clampedY)
       //work out going backwards
       this.y = this.y + this.scale
@@ -65,7 +64,7 @@ export default class Square {
   }
 
   render() {
-    this.ctx.fillStyle = 'yellow'
+    this.ctx.fillStyle = 'green'
     this.ctx.beginPath();
     this.ctx.rect(this.x, this.y, this.size, this.size);
     this.ctx.fill();

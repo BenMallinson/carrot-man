@@ -8,16 +8,19 @@ let c = document.getElementById("secondCanvas");
 let ctx = c.getContext("2d");
 
 const player = new Player(ctx);
-const lanes = new Lanes(ctx);
+const lanes = new Lanes(ctx, c);
+const midPoint = c.width / 2
+const height = c.height + 25
+const chunk = c.width / 4
 const squares = [
-  new Square (375, 5, 10, 50, 525, 475, ctx),
-  new Square (375, 5, 10, 50, 525, 475, ctx),
-  new Square (325, 5, 10, 50, 350, 475, ctx),
-  new Square (325, 5, 10, 50, 350, 475, ctx),
-  new Square (275, 5, 10, 50, 175, 475, ctx),
-  new Square (275, 5, 10, 50, 175, 475, ctx),
-  new Square (225, 5, 10, 50, 50, 475, ctx),
-  new Square (225, 5, 10, 50, 50, 475, ctx),
+  new Square (midPoint + 10, 20, 5, 25, midPoint + (chunk * 1.5), height, ctx),
+  new Square (midPoint + 5, 20, 5, 25, midPoint + (chunk * 0.5), height, ctx),
+  new Square (midPoint - 5, 20, 5, 25, midPoint - (chunk * 0.5), height, ctx),
+  new Square (midPoint - 10, 20, 5, 25, midPoint - (chunk * 1.5), height, ctx),
+  new Square (midPoint + 10, 20, 5, 25, midPoint + (chunk * 1.5), height, ctx),
+  new Square (midPoint + 5, 20, 5, 25, midPoint + (chunk * 0.5), height, ctx),
+  new Square (midPoint - 5, 20, 5, 25, midPoint - (chunk * 0.5), height, ctx),
+  new Square (midPoint - 10, 20, 5, 25, midPoint - (chunk * 1.5), height, ctx),
 ]
 
 let score = 0
@@ -40,7 +43,7 @@ function restart () {
 }
 
   function render () {
-  ctx.clearRect(0, 0, 600, 450)
+  ctx.clearRect(0, 0, c.width, c.height)
   lanes.render()
   player.render()
     squares.filter(square => square.alive)
