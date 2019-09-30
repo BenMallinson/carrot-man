@@ -1,0 +1,49 @@
+body {
+  font-family: Helvetica, sans-serif;
+}
+
+video, canvas {
+  margin-left: 100px;
+  margin-top: 35px;
+  position: absolute;
+  box-shadow: 5px 5px 30px 5px rgba(79, 79, 79, 0.3);
+  border: solid #222 3px;
+}
+
+video {
+  /*filter: blur(2px);*/
+}
+
+#secondCanvas {
+  z-index: 1000;
+}
+
+#infoContainer {
+  position: absolute;
+  width: 50%;
+  top: 35px;
+  left: 120px;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  z-index: 1000;
+  font-family: Helvetica, sans-serif;
+}
+
+#infoContainer div {
+  color: white !important;
+  padding: 20px;
+}
+
+#gameOver {
+  position: fixed;
+  display: none;
+  top: 45px;
+  left: 111px;
+  width: 600px;
+  height: 450px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: red;
+  z-index: 99999;
+  text-align: center;
+}
