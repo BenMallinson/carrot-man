@@ -48,7 +48,7 @@ export default class Square {
 
       this.scale = clampedY * 8
       this.x = this.calculateAdjustments(this.startX, this.targetX, clampedY)
-      this.y = (this.y + this.scale) * window.devicePixelRatio
+      this.y = this.y + (this.scale * devicePixelRatio)
       let size = this.calculateAdjustments(this.startSize, this.maxSize, clampedY)
       this.size = size
       this.width = size
