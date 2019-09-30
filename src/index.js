@@ -4,48 +4,61 @@ import Lanes from './components/lanes'
 import Square from './components/square'
 require('/lib/tracking')
 
-let c = document.getElementById("secondCanvas");
-let ctx = c.getContext("2d");
+window.onload = function() {
 
-const player = new Player(ctx);
-const lanes = new Lanes(ctx, c);
-const midPoint = c.width / 2
-const height = c.height + 25
-const chunk = c.width / 4
-const squares = [
-  new Square (midPoint + 10, 20, 5, 25, midPoint + (chunk * 1.5), height, ctx),
-  new Square (midPoint + 5, 20, 5, 25, midPoint + (chunk * 0.5), height, ctx),
-  new Square (midPoint - 5, 20, 5, 25, midPoint - (chunk * 0.5), height, ctx),
-  new Square (midPoint - 10, 20, 5, 25, midPoint - (chunk * 1.5), height, ctx),
-  new Square (midPoint + 10, 20, 5, 25, midPoint + (chunk * 1.5), height, ctx),
-  new Square (midPoint + 5, 20, 5, 25, midPoint + (chunk * 0.5), height, ctx),
-  new Square (midPoint - 5, 20, 5, 25, midPoint - (chunk * 0.5), height, ctx),
-  new Square (midPoint - 10, 20, 5, 25, midPoint - (chunk * 1.5), height, ctx),
-]
+  let c = document.getElementById("secondCanvas")
+  c.width = document.body.clientWidth
+  c.height = document.body.clientHeight
+  let ctx = c.getContext("2d")
 
-let score = 0
-let lives = 3
+  let canvas = document.getElementById('canvas')
+  canvas.width = document.body.clientWidth
+  canvas.height = document.body.clientHeight
+  let context = canvas.getContext('2d')
 
-setInterval(() => {
-  squares.filter(square => !square.alive)
-    .forEach(deadSquare => {
-      if (Math.random() >= 0.5) {
-        deadSquare.reset()
-      }
-    })
-}, 2000)
+  let video = document.getElementById('video')
+  video.width = document.body.clientWidth
+  video.height = document.body.clientHeight
 
-function restart () {
-  score = 0
-  lives = 3
-  document.getElementById('gameOver').style.display = 'none'
-  window.requestAnimationFrame(render)
-}
+  const player = new Player(ctx, 25, canvas.height - 25, 50, 25);
+  const lanes = new Lanes(ctx, c);
+  const midPoint = c.width / 2
+  const height = c.height + 25
+  const chunk = c.width / 4
+  const squares = [
+    new Square (midPoint + 10, 20, 5, 25, midPoint + (chunk * 1.5), height, ctx),
+    new Square (midPoint + 5, 20, 5, 25, midPoint + (chunk * 0.5), height, ctx),
+    new Square (midPoint - 5, 20, 5, 25, midPoint - (chunk * 0.5), height, ctx),
+    new Square (midPoint - 10, 20, 5, 25, midPoint - (chunk * 1.5), height, ctx),
+    new Square (midPoint + 10, 20, 5, 25, midPoint + (chunk * 1.5), height, ctx),
+    new Square (midPoint + 5, 20, 5, 25, midPoint + (chunk * 0.5), height, ctx),
+    new Square (midPoint - 5, 20, 5, 25, midPoint - (chunk * 0.5), height, ctx),
+    new Square (midPoint - 10, 20, 5, 25, midPoint - (chunk * 1.5), height, ctx),
+  ]
+
+  let score = 0
+  let lives = 3
+
+  setInterval(() => {
+    squares.filter(square => !square.alive)
+      .forEach(deadSquare => {
+        if (Math.random() >= 0.5) {
+          deadSquare.reset()
+        }
+      })
+  }, 2000)
+
+  function restart () {
+    score = 0
+    lives = 3
+    document.getElementById('gameOver').style.display = 'none'
+    window.requestAnimationFrame(render)
+  }
 
   function render () {
-  ctx.clearRect(0, 0, c.width, c.height)
-  lanes.render()
-  player.render()
+    ctx.clearRect(0, 0, c.width, c.height)
+    lanes.render()
+    player.render()
     squares.filter(square => square.alive)
       .forEach(aliveSquare => {
         aliveSquare.update()
@@ -69,12 +82,8 @@ function restart () {
     } else {
       document.getElementById('gameOver').style.display = 'block'
     }
-}
-requestAnimationFrame(render)
-
-window.onload = function() {
-  let canvas = document.getElementById('canvas');
-  let context = canvas.getContext('2d');
+  }
+  requestAnimationFrame(render)
 
   tracking.ColorTracker.registerColor('orange', function(r, g, b) {
     let { h, s, v } =  rgb2hsv(r, g, b)

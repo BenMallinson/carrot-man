@@ -1,13 +1,13 @@
 body {
   font-family: Helvetica, sans-serif;
+    width: 100vw;
+    height: 100vh;
 }
 
 video, canvas {
-  margin-left: 100px;
-  margin-top: 35px;
-  position: absolute;
-  box-shadow: 5px 5px 30px 5px rgba(79, 79, 79, 0.3);
-  border: solid #222 3px;
+  position: fixed;
+    top: 0;
+    left: 0;
 }
 
 video {
@@ -20,7 +20,7 @@ video {
 
 #infoContainer {
   position: absolute;
-  width: 50%;
+  width: 200px;
   top: 35px;
   left: 120px;
   display: flex;
@@ -28,6 +28,7 @@ video {
   color: white;
   z-index: 1000;
   font-family: Helvetica, sans-serif;
+    background-color: rgba(0, 0, 0, 0.5)
 }
 
 #infoContainer div {
@@ -38,10 +39,10 @@ video {
 #gameOver {
   position: fixed;
   display: none;
-  top: 45px;
-  left: 111px;
-  width: 600px;
-  height: 450px;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
   background-color: rgba(255, 255, 255, 0.5);
   color: red;
   z-index: 99999;

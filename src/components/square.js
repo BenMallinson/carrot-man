@@ -48,7 +48,6 @@ export default class Square {
 
       this.scale = clampedY * 4
       this.x = this.calculateAdjustments(this.startX, this.targetX, clampedY)
-      //work out going backwards
       this.y = this.y + this.scale
       let size = this.calculateAdjustments(this.startSize, this.maxSize, clampedY)
       this.size = size

@@ -1,9 +1,9 @@
 export default class Player {
-  constructor(ctx) {
-    this.x = 50;
-    this.y = 415;
-    this.width =  50;
-    this.height = 25;
+  constructor(ctx, x, y, width, height) {
+    this.x = x;
+    this.y = y;
+    this.width =  width;
+    this.height = height;
     this.ctx = ctx;
     this.collided = false
     this.setLocation = this.setLocation.bind(this);
