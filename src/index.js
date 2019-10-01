@@ -116,13 +116,19 @@ window.onload = function() {
 
   tracking.track('#video', tracker, { camera: true });
   if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({  video: {
-        facingMode: "environment"
-      }, })
+    navigator.mediaDevices.getUserMedia({
+      video:
+        {
+          width: { max: canvas.width },
+          height: { max: canvas.height },
+          facingMode: "environment"
+        }
+    })
       .then(function (stream) {
         videoStream.srcObject = stream;
       })
       .catch(function (error) {
+        console.log(error)
         console.log("Something went wrong!");
       });
   }
