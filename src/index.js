@@ -13,6 +13,7 @@ window.onload = function() {
   let context = canvas.getContext('2d')
 
   let video = document.getElementById('video')
+  let videoStream = document.getElementById('videoStream')
 
   const player = new Player(ctx, 25, canvas.height - 100, canvas.width / 10, canvas.height / 20);
   const lanes = new Lanes(ctx, c);
@@ -109,11 +110,20 @@ window.onload = function() {
       // context.fillStyle = "#fff";
       // context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
       // context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
-      player.move(rect.x, video.width)
+      player.move(rect.x, video.width, canvas.width)
     });
   });
 
   tracking.track('#video', tracker, { camera: true });
+  if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(function (stream) {
+        videoStream.srcObject = stream;
+      })
+      .catch(function (error) {
+        console.log("Something went wrong!");
+      });
+  }
 };
 
 function rgb2hsv (r, g, b) {
