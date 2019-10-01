@@ -15,33 +15,48 @@ window.onload = function() {
   let video = document.getElementById('video')
   let videoStream = document.getElementById('videoStream')
 
-  const player = new Player(ctx, 25, canvas.height - 100, canvas.width / 10, canvas.height / 20);
-  const lanes = new Lanes(ctx, c);
-  const midPoint = c.width / 2
-  const height = c.height + 25
-  const chunk = c.width / 4
-  const squares = [
-    new Square (midPoint + 10, 20, 5, canvas.width / 20, midPoint + (chunk * 1.5), height, ctx),
-    new Square (midPoint + 5, 20, 5, canvas.width / 20, midPoint + (chunk * 0.5), height, ctx),
-    new Square (midPoint - 5, 20, 5, canvas.width / 20, midPoint - (chunk * 0.5), height, ctx),
-    new Square (midPoint - 10, 20, 5, canvas.width / 20, midPoint - (chunk * 1.5), height, ctx),
-    new Square (midPoint + 10, 20, 5, canvas.width / 20, midPoint + (chunk * 1.5), height, ctx),
-    new Square (midPoint + 5, 20, 5, canvas.width / 20, midPoint + (chunk * 0.5), height, ctx),
-    new Square (midPoint - 5, 20, 5, canvas.width / 20, midPoint - (chunk * 0.5), height, ctx),
-    new Square (midPoint - 10, 20, 5, canvas.width / 20, midPoint - (chunk * 1.5), height, ctx),
-  ]
+  videoStream.addEventListener('loadeddata', () => {
+    canvas.height = videoStream.videoHeight
+    canvas.width = videoStream.videoWidth
+    c.height = videoStream.videoHeight
+    c.width = videoStream.videoWidth
+    init()
+  })
+
+  let player, lanes, squares
+
+  const init = () => {
+    player = new Player(ctx, 25, canvas.height - 100, canvas.width / 10, canvas.height / 20);
+    lanes = new Lanes(ctx, c);
+    const midPoint = c.width / 2
+    const height = c.height + 25
+    const chunk = c.width / 4
+    squares = [
+      new Square (midPoint + 10, 20, 5, canvas.width / 20, midPoint + (chunk * 1.5), height, ctx),
+      new Square (midPoint + 5, 20, 5, canvas.width / 20, midPoint + (chunk * 0.5), height, ctx),
+      new Square (midPoint - 5, 20, 5, canvas.width / 20, midPoint - (chunk * 0.5), height, ctx),
+      new Square (midPoint - 10, 20, 5, canvas.width / 20, midPoint - (chunk * 1.5), height, ctx),
+      new Square (midPoint + 10, 20, 5, canvas.width / 20, midPoint + (chunk * 1.5), height, ctx),
+      new Square (midPoint + 5, 20, 5, canvas.width / 20, midPoint + (chunk * 0.5), height, ctx),
+      new Square (midPoint - 5, 20, 5, canvas.width / 20, midPoint - (chunk * 0.5), height, ctx),
+      new Square (midPoint - 10, 20, 5, canvas.width / 20, midPoint - (chunk * 1.5), height, ctx),
+    ]
+
+    setInterval(() => {
+      squares.filter(square => !square.alive)
+        .forEach(deadSquare => {
+          if (Math.random() >= 0.5) {
+            deadSquare.reset()
+          }
+        })
+    }, 2000)
+
+    requestAnimationFrame(render)
+  }
 
   let score = 0
   let lives = 3
 
-  setInterval(() => {
-    squares.filter(square => !square.alive)
-      .forEach(deadSquare => {
-        if (Math.random() >= 0.5) {
-          deadSquare.reset()
-        }
-      })
-  }, 2000)
 
   // function restart () {
   //   score = 0
@@ -87,7 +102,6 @@ window.onload = function() {
       document.getElementById('gameOver').style.display = 'block'
     }
   }
-  requestAnimationFrame(render)
 
   tracking.ColorTracker.registerColor('orange', function(r, g, b) {
     let { h, s, v } =  rgb2hsv(r, g, b)
@@ -121,7 +135,7 @@ window.onload = function() {
         {
           width: { max: canvas.width },
           height: { max: canvas.height },
-          facingMode: "environment"
+          facingMode: "environment",
         }
     })
       .then(function (stream) {
