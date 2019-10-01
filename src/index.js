@@ -109,7 +109,7 @@ window.onload = function() {
       // context.fillStyle = "#fff";
       // context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
       // context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
-      player.move(rect.x, canvas.width)
+      player.move(rect.x, video.width)
     });
   });
 
