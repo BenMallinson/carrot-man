@@ -4,7 +4,7 @@ body {
   max-height: 100vh;
   width: 100vw;
   height: 100vh;
-  background-color: grey;
+  background-color: white;
   padding: 0;
   margin: 0;
     display:flex;
@@ -18,6 +18,7 @@ video, canvas {
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
 
 #secondCanvas {
   z-index: 1000;
@@ -62,16 +63,21 @@ video, canvas {
   height: 150px;
   width: 300px;
   z-index: 1;
-
-  top: 250px;
-  left: 250px;
 }
 
 #videoStream {
   position:fixed;
+  z-index: 2;
   height: 100vh;
   width: 100vw;
-  z-index: 2;
+}
+
+#snowCover {
+  background-color: rgba(255, 255, 255, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
 
 #gameOver > h1:nth-child(1) {

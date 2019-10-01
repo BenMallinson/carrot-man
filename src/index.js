@@ -6,6 +6,8 @@ require('/lib/tracking')
 
 window.onload = function() {
 
+  let snow = document.getElementById("snowCover")
+
   let c = document.getElementById("secondCanvas")
   let ctx = c.getContext("2d")
 
@@ -15,31 +17,53 @@ window.onload = function() {
   let video = document.getElementById('video')
   let videoStream = document.getElementById('videoStream')
 
-  videoStream.addEventListener('loadeddata', () => {
-    canvas.height = videoStream.videoHeight
-    canvas.width = videoStream.videoWidth
-    c.height = videoStream.videoHeight
-    c.width = videoStream.videoWidth
+  videoStream.width = window.innerWidth
+  videoStream.height = window.innerHeight
+  videoStream.addEventListener('loadedmetadata', () => {
+    const dimensions =  videoDimensions(videoStream)
+    canvas.height = dimensions.height
+    canvas.width = dimensions.width
+    c.height = dimensions.height
+    c.width = dimensions.width
+    snow.style.height = `${dimensions.height * 0.6}px`
+    snow.style.width = `${dimensions.width}px`
+    snow.style.top = `${dimensions.height * 0.4}px`
+    const left = (window.innerWidth - dimensions.width) / 2
+    snow.style.left = `${left}px`
+
+    console.log(dimensions.width, dimensions.height)
     init()
   })
+
+  function videoDimensions(videoToFind) {
+    // Ratio of the video's intrisic dimensions
+    let videoRatio = videoToFind.videoWidth / videoToFind.videoHeight;
+    // The width and height of the video element
+    let width = videoToFind.offsetWidth, height = videoToFind.offsetHeight;
+    // The ratio of the element's width to its height
+    let elementRatio = width/height;
+    // If the video element is short and wide
+    if(elementRatio > videoRatio) width = height * videoRatio;
+    // It must be tall and thin, or exactly equal to the original ratio
+    else height = width / videoRatio;
+    return {
+      width: width,
+      height: height
+    };
+  }
 
   let player, lanes, squares
 
   const init = () => {
-    player = new Player(ctx, 25, canvas.height - 100, canvas.width / 10, canvas.height / 20);
+    player = new Player(ctx, 25, canvas.height - 20, canvas.width / 10, canvas.height / 20);
     lanes = new Lanes(ctx, c);
     const midPoint = c.width / 2
-    const height = c.height + 25
+    const height = c.height
     const chunk = c.width / 4
     squares = [
-      new Square (midPoint + 10, 20, 5, canvas.width / 20, midPoint + (chunk * 1.5), height, ctx),
-      new Square (midPoint + 5, 20, 5, canvas.width / 20, midPoint + (chunk * 0.5), height, ctx),
-      new Square (midPoint - 5, 20, 5, canvas.width / 20, midPoint - (chunk * 0.5), height, ctx),
-      new Square (midPoint - 10, 20, 5, canvas.width / 20, midPoint - (chunk * 1.5), height, ctx),
-      new Square (midPoint + 10, 20, 5, canvas.width / 20, midPoint + (chunk * 1.5), height, ctx),
-      new Square (midPoint + 5, 20, 5, canvas.width / 20, midPoint + (chunk * 0.5), height, ctx),
-      new Square (midPoint - 5, 20, 5, canvas.width / 20, midPoint - (chunk * 0.5), height, ctx),
-      new Square (midPoint - 10, 20, 5, canvas.width / 20, midPoint - (chunk * 1.5), height, ctx),
+      new Square (midPoint - (chunk * 0.2), height * 0.4, 5, canvas.width / 20, midPoint - (chunk * 1.3), height, ctx),
+      new Square (midPoint, height * 0.4, 5, canvas.width / 20, midPoint, height, ctx),
+      new Square (midPoint + (chunk * 0.2), height * 0.4, 5, canvas.width / 20, midPoint + (chunk * 1.3), height, ctx),
     ]
 
     setInterval(() => {
@@ -133,8 +157,8 @@ window.onload = function() {
     navigator.mediaDevices.getUserMedia({
       video:
         {
-          width: { max: canvas.width },
-          height: { max: canvas.height },
+          // width: { max: canvas.width },
+          // height: { max: canvas.height },
           facingMode: "environment",
         }
     })

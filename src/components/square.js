@@ -30,7 +30,7 @@ export default class Square {
 
   reset () {
     this.x = this.startX
-    this.y = 40
+    this.y = this.targetY * 0.4
     this.scale = 1
     this.speed = 1
     this.alive = true
