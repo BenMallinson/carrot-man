@@ -27,7 +27,8 @@ window.onload = function() {
     c.width = dimensions.width
     snow.style.height = `${dimensions.height * 0.6}px`
     snow.style.width = `${dimensions.width}px`
-    snow.style.top = `${dimensions.height * 0.4}px`
+    const top = (dimensions.height * 0.4) + 64
+    snow.style.top = `${top}px`
     const left = (window.innerWidth - dimensions.width) / 2
     snow.style.left = `${left}px`
 
@@ -136,19 +137,19 @@ window.onload = function() {
   // tracker.setMinDimension(50)
 
   tracker.on('track', function(event) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    // context.clearRect(0, 0, canvas.width, canvas.height);
     event.data.forEach(function(rect) {
       // if (rect.color === 'custom') {
       //   rect.color = tracker.customColor;
       // }
       //
-      // context.strokeStyle = rect.color;
-      // context.strokeRect(rect.x, rect.y, rect.width, rect.height);
-      // context.font = '11px Helvetica';
-      // context.fillStyle = "#fff";
-      // context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
-      // context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
-      player.move(rect.x, video.width, canvas.width)
+      context.strokeStyle = rect.color;
+      context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+      context.font = '11px Helvetica';
+      context.fillStyle = "#fff";
+      context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+      context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+      player.move(rect.x + rect.width / 2, video.videoWidth, canvas.width)
     });
   });
 
