@@ -5,7 +5,7 @@ export default class Square {
     this.width = size
     this.height = size
     this.scale =  1
-    this.speed = 1
+    this.speed = 3
     this.startSize = size
     this.size = size
     this.maxSize = maxSize
@@ -42,17 +42,18 @@ export default class Square {
     return start + (difference * modifier)
   }
 
-  update () {
+  update (delta) {
     if (this.alive) {
       const clampedY = this.clamp(this.y / this.targetY, 0, 1)
-
       this.scale = clampedY * 14
       this.x = this.calculateAdjustments(this.startX, this.targetX, clampedY)
-      this.y = this.y + (this.scale * devicePixelRatio)
       let size = this.calculateAdjustments(this.startSize, this.maxSize, clampedY)
       this.size = size
       this.width = size
       this.height = size
+
+      const value = 0.2 * delta
+      this.y = this.y + value
 
       if(this.y >= this.targetY) {
         this.alive = false

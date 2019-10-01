@@ -7,18 +7,12 @@ require('/lib/tracking')
 window.onload = function() {
 
   let c = document.getElementById("secondCanvas")
-  c.width = document.body.clientWidth
-  c.height = document.body.clientHeight
   let ctx = c.getContext("2d")
 
   let canvas = document.getElementById('canvas')
-  canvas.width = document.body.clientWidth
-  canvas.height = document.body.clientHeight
   let context = canvas.getContext('2d')
 
   let video = document.getElementById('video')
-  video.width = document.body.clientWidth
-  video.height = document.body.clientHeight
 
   const player = new Player(ctx, 25, canvas.height - 100, canvas.width / 10, canvas.height / 20);
   const lanes = new Lanes(ctx, c);
@@ -55,13 +49,22 @@ window.onload = function() {
     window.requestAnimationFrame(render)
   }
 
+  let current = Date.now()
+  let start = Date.now()
+  let elapsed = 0
+
   function render () {
+    current = Date.now()
+    elapsed = current - start;
+    start = current
     ctx.clearRect(0, 0, c.width, c.height)
     lanes.render()
     player.render()
+
+
     squares.filter(square => square.alive)
       .forEach(aliveSquare => {
-        aliveSquare.update()
+        aliveSquare.update(1000 / elapsed)
         if (player.x < aliveSquare.x + aliveSquare.width &&
           player.x + player.width > aliveSquare.x &&
           player.y < aliveSquare.y + aliveSquare.height &&
